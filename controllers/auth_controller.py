@@ -53,8 +53,10 @@ def login():
 
     # check password
     if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
-        token = create_access_token(identity={"id": user[0], "role": user[4]})
-
+        token = create_access_token(
+    identity=str(user[0]),
+    additional_claims={"role": user[4]}
+)
         return jsonify({
             "message": "Login successful",
             "token": token

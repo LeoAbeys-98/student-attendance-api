@@ -1,8 +1,14 @@
 from flask import request, jsonify
 from models.db import mysql
+from flask_jwt_extended import jwt_required, get_jwt_identity   
+from middleware.auth_middleware import role_required
 
+@role_required('admin')
+@jwt_required() 
 def add_student():
+    current_user = get_jwt_identity()
     data = request.get_json()
+    
 
     name = data['name']
     email = data['email']
