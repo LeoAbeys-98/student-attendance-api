@@ -7,6 +7,7 @@ from flask_jwt_extended import JWTManager
 from routes.student_routes import student_bp
 from routes.attendance_routes import attendance_bp
 
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -35,6 +36,8 @@ def test_db():
     cur.execute("SELECT 1")
     return "Database Connected Successfully!"
 
-
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port)
+
     app.run(debug=True)
